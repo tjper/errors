@@ -1,0 +1,19 @@
+version: 2.1
+executors:
+  golang-executor:
+    working_directory: ~/project
+    docker:
+      - image: circleci/golang:1.12.5
+
+commands:
+jobs:
+  test:
+    executor: golang-executor
+    steps:
+      - checkout
+      - run: go test -v -race -count 1 ./...
+
+workflows:
+  commit:
+    jobs:
+      - test
